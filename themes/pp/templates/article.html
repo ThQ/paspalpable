@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block html_lang %}{{ article.lang }}{% endblock %}
+{% block head -%}
+  {{ super() -}}
+  {% if article.summary %}
+        <meta name="description" content="{{ article.summary | striptags | safe | truncate(150) }}" />
+  {% endif %}
+{% endblock %}
+
+{% block title %}{{ article.title|striptags }} | {{SITENAME}} {% endblock %}
+
+{% block content %}
+<article>
+  <h1 class="entry-title">{{ article.title }}</h1>
+
+  <div class="entry-content">
+    <footer class="post-info">
+      {{ article.date.strftime('%B %Y').title() }}
+
+      {% if article.modified %}       
+        (Modifié : {{ article.modified.strftime('%B %Y') }})
+      {% endif %}
+
+    </footer><!-- /.post-info -->
+    <div class="box">{{ article.content }}</div>
+  </div>
+</article>
+
+{% endblock %}
